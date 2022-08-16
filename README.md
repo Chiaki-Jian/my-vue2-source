@@ -87,4 +87,90 @@
   }
   ```
 
-  
+
+
+
+## 2 初始化配置
+
+按照Vue官方提供文档，使用Vue是需要创建Vue实例，实例中传入组件配置即可：
+
+```js
+// test/index.html
+
+let vm = new Vue({
+  data() {
+    return {
+      name: 'cheng',
+      age: 16
+    }
+  }
+})
+```
+
+Vue官方并没有使用class定义Vue类，而是使用构造函数实现Vue功能，减少了因为Class方案导致的内部方法过于冗杂和耦合的问题：
+
+```js
+// src/index.js
+
+function Vue(options) {
+  const vm = this // 避免主体混乱，使用变量vm接收Vue主体
+  vm.$options = options
+  // ...
+}
+
+export default Vue
+```
+
+如果按照上述代码继续实现Vue功能代码，仍会冗余。
+
+切分核心方法init：
+
+```js
+//src/init.js
+export initMixin(Vue) {
+  Vue.prototype._init = function(options) {
+     const vm = this
+  	vm.$options = options
+  // ...
+		}
+  }
+}
+
+```
+
+```js
+//src/index.js
+import { initMixin } from './init'
+
+function Vue(options) {
+  this._init(options)
+}
+
+initMixin(Vue)
+
+export default Vue
+
+```
+
+增加初始化==状态==的方法state
+
+```js
+// src/state.js
+// 状态初始化方法
+export function initState(vm) {
+  const opts = vm.$options // 获取所有配置
+  if (opts.data) {
+    initData(vm)
+  }
+}
+
+// 配置初始化方法 data
+// 对数据设置代理
+function initData(vm) {
+  let data = vm.$options.data
+  // data => 对象｜函数
+  data = typeof data === 'function' ? data.call(vm) : data
+  console.log('data', data);
+}
+```
+
