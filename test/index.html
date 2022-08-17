@@ -13,17 +13,29 @@
   <div id="app"></div>
 </body>
 <script>
-  // console.log(Vue); 
+  // console.log(Vue);
   // 响应式数据 => 数据变化了我们可以监听到
   // 数据的 值 和 值的改变 我们要监控到
   let vm = new Vue({
     data() {
       return {
         name: 'cheng',
-        age: 16
+        age: 16,
+        equips: {
+          gun: 'm4'
+        },
+        hobby: ['抽烟', '喝酒', { a: '烫头' }]
       }
     }
   })
+  // vm.equips = {
+  //   shoots: 'navi'
+  // }
+  // vm.hobby[2].a
+  vm.hobby.push({b: 2})
+  setTimeout(() => {
+    vm.hobby.unshift({aa: 1})
+  }, 1000)
 </script>
 
 </html>
