@@ -33,7 +33,7 @@ function proxy(vm, target, key) {
       return vm[target][key]
     },
     set(newValue) {
-      debugger
+      // debugger
       vm[target][key] = newValue
     }
   })
