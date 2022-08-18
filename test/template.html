@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="name" style="color: #666">{{ name }}</div>
+    <span class="age"> {{ age }}</span>
+  </div>
+</body>
+<script>
+  // console.log(Vue);
+  // 响应式数据 => 数据变化了我们可以监听到
+  // 数据的 值 和 值的改变 我们要监控到
+  let vm = new Vue({
+    el: '#app',
+    // template:"<div id='app' :props='data' >hello</div>",
+    data() {
+      return {
+        name: 'cheng',
+        age: 16,
+      }
+    }
+  })
+</script>
+
+</html>

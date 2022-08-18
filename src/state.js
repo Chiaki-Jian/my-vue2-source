@@ -1,4 +1,4 @@
-import { observe } from './observe/index'
+import { observe } from './observe'
 // 状态初始化方法
 export function initState(vm) {
   const opts = vm.$options // 获取所有配置
